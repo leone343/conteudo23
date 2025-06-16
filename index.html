@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Surpresa Especial 🔥</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -21,32 +21,36 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       text-align: center;
       padding: 20px;
       position: relative;
+      overflow: hidden;
     }
 
     h1 {
-      font-size: 2.8rem;
+      font-size: 2.3rem;
       margin-bottom: 1rem;
     }
 
     p {
-      font-size: 1.3rem;
-      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      max-width: 90%;
     }
 
     .btn {
       background-color: #fff;
       color: #ff416c;
       border: none;
-      padding: 20px 50px;
-      border-radius: 40px;
+      padding: 20px 40px;
+      border-radius: 50px;
       font-size: 1.5rem;
       font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      animation: pulse 1.5s infinite;
+      transition: all 0.3s ease;
     }
 
     .btn:hover {
@@ -55,22 +59,29 @@
       transform: scale(1.05);
     }
 
-    .arrows {
-      font-size: 2rem;
-      margin-bottom: 15px;
-      animation: blink 1s infinite;
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.07); }
+      100% { transform: scale(1); }
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+    .arrow {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
     }
 
     .overlay {
       position: absolute;
       bottom: 20px;
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.7);
     }
 
     .bg-img {
@@ -81,7 +92,11 @@
       height: 100%;
       object-fit: cover;
       z-index: -1;
-      opacity: 0.15;
+      opacity: 0.1;
+    }
+
+    audio {
+      display: none;
     }
   </style>
 </head>
@@ -92,11 +107,19 @@
   <h1>😈 Pronto para o Prazer?</h1>
   <p>Você está prestes a entrar em algo bem... excitante. Não diga que não avisei. 👀</p>
 
-  <div class="arrows">⬇️⬇️⬇️</div>
+  <div class="arrow">▼</div>
 
-  <button class="btn" onclick="window.location.href='https://reyeshehadtwobri.com?ifMBV=1191270'">ENTRAR AGORA</button>
+  <button class="btn" onclick="playSound(); window.location.href='https://4br.me/musasquentes1'">ENTRAR AGORA</button>
 
-  <div class="overlay">Clique no botão acima para continuar</div>
+  <div class="overlay">Toque no botão acima e aproveite o conteúdo 🔥</div>
+
+  <audio id="moanSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_97599b831d.mp3"></audio>
+
+  <script>
+    function playSound() {
+      const audio = document.getElementById("moanSound");
+      audio.play();
+    }
+  </script>
 </body>
-
 </html>
