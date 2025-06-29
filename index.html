@@ -3,63 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🔥 Surpresa Quente Liberada 🔥</title>
+  <title>🔞 Liberado com Exclusividade</title>
   <style>
     body {
+      margin: 0;
       background-color: #000;
       color: #fff;
       font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
       text-align: center;
-      padding: 50px 20px;
-    }
-
-    .botao-fake {
-      background: linear-gradient(45deg, #ff004f, #ff6a00);
-      color: white;
-      padding: 20px 30px;
-      font-size: 22px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 0 15px #ff004f;
-    }
-
-    .botao-fake:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #ff004f;
     }
 
     h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
+      font-size: 32px;
+      margin-bottom: 10px;
     }
 
     p {
       font-size: 18px;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+      padding: 0 20px;
+    }
+
+    .imagem-fake {
+      width: 90%;
+      max-width: 400px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #ff006a;
+      cursor: pointer;
     }
   </style>
 </head>
-<body>
+<body onclick="ativarPop()">
 
-  <h1>😈 Conteúdo Exclusivo 🔥</h1>
-  <p>Esse vídeo completo está liberado só para os mais safados 😏<br>Clique abaixo e se surpreenda sem censura! 🔞</p>
+  <h1>🔥 Vídeo Completo Liberado 🔥</h1>
+  <p>Clique na imagem abaixo para liberar o conteúdo sem censura 👀</p>
 
-  <button class="botao-fake" onclick="abrirPop()">👀 VER AGORA</button>
+  <!-- Imagem fake de vídeo -->
+  <img class="imagem-fake" src="https://i.imgur.com/8C8N6sY.jpeg" alt="Clique para ver" />
 
-  <!-- 🎧 Som de gemido (carregado ao clicar) -->
+  <!-- Áudio de gemido -->
   <audio id="gemido" src="https://www.myinstants.com/media/sounds/gemidao.mp3" preload="auto"></audio>
 
-  <!-- 💥 Script do popunder -->
+  <!-- Script do popunder -->
   <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-  <script type="text/javascript">
-    function abrirPop() {
-      // Toca o som
-      document.getElementById('gemido').play();
-
-      // Dispara o pop
-      aclib.runPop({ zoneId: '10122762' });
+  <script>
+    let jaClicou = false;
+    function ativarPop() {
+      if (!jaClicou) {
+        document.getElementById('gemido').play();
+        aclib.runPop({ zoneId: '10122762' });
+        jaClicou = true;
+      }
     }
   </script>
 
