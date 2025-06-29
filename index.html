@@ -3,18 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meu Site Adulto 🔞</title>
+  <title>🔥 Surpresa Quente Liberada 🔥</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px 20px;
+    }
 
-  <!-- Scripts de anúncio do adManager -->
-  <script async src="https://js.wpadmngr.com/static/adManager.js" data-admpid="344801"></script>
-  <script async src="https://js.wpadmngr.com/static/adManager.js" data-admpid="344805"></script>
+    .botao-fake {
+      background: linear-gradient(45deg, #ff004f, #ff6a00);
+      color: white;
+      padding: 20px 30px;
+      font-size: 22px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 15px #ff004f;
+    }
 
+    .botao-fake:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #ff004f;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Bem-vindo ao Prazer Sem Censura 🔥</h1>
-  <p>Prepare-se para se surpreender com o conteúdo +18 mais quente da internet.</p>
 
-  <!-- Seu conteúdo + anúncios aparecerão aqui automaticamente conforme a configuração do adManager -->
+  <h1>😈 Conteúdo Exclusivo 🔥</h1>
+  <p>Esse vídeo completo está liberado só para os mais safados 😏<br>Clique abaixo e se surpreenda sem censura! 🔞</p>
+
+  <button class="botao-fake" onclick="abrirPop()">👀 VER AGORA</button>
+
+  <!-- 🎧 Som de gemido (carregado ao clicar) -->
+  <audio id="gemido" src="https://www.myinstants.com/media/sounds/gemidao.mp3" preload="auto"></audio>
+
+  <!-- 💥 Script do popunder -->
+  <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+  <script type="text/javascript">
+    function abrirPop() {
+      // Toca o som
+      document.getElementById('gemido').play();
+
+      // Dispara o pop
+      aclib.runPop({ zoneId: '10122762' });
+    }
+  </script>
 
 </body>
 </html>
