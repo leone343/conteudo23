@@ -109,16 +109,19 @@
 
   <div class="arrow">▼</div>
 
-  <button class="btn" onclick="playSound(); window.location.https://reyeshehadtwobri.com?ifMBV=1191270'">ENTRAR AGORA</button>
+  <button class="btn" onclick="playAndRedirect()">ENTRAR AGORA</button>
 
   <div class="overlay">Toque no botão acima e aproveite o conteúdo 🔥</div>
 
   <audio id="moanSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_97599b831d.mp3"></audio>
 
   <script>
-    function playSound() {
+    function playAndRedirect() {
       const audio = document.getElementById("moanSound");
       audio.play();
+      setTimeout(() => {
+        window.location.href = 'https://reyeshehadtwobri.com?ifMBV=1191270';
+      }, 1200); // Aguarda 1.2 segundos antes de redirecionar
     }
   </script>
 </body>
