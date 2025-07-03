@@ -3,67 +3,123 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🔥 Surpresa Quente +18</title>
-  
+  <title>Surpresa Especial 🔥</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      background-color: #000000; /* Fundo preto */
-      font-family: 'Arial', sans-serif;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(120deg, #ff416c, #ff4b2b);
       color: #fff;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
-    }
-
-    .overlay {
-      background-color: rgba(255, 0, 0, 0.8); /* vermelho transparente */
-      padding: 30px;
-      border-radius: 15px;
+      align-items: center;
+      min-height: 100vh;
       text-align: center;
-      max-width: 90%;
-      box-shadow: 0 0 20px #ff0000;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
     }
 
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      color: #ff4d4d;
-      text-shadow: 0 0 10px #ff0000;
+      font-size: 2.3rem;
+      margin-bottom: 1rem;
     }
 
     p {
-      font-size: 1.2em;
-      margin-bottom: 15px;
-      text-shadow: 0 0 8px #ff0000;
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      max-width: 90%;
     }
 
-    .tag {
-      background-color: #ff1a1a;
-      color: #fff;
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 10px;
-      margin-top: 10px;
+    .btn {
+      background-color: #fff;
+      color: #ff416c;
+      border: none;
+      padding: 20px 40px;
+      border-radius: 50px;
+      font-size: 1.5rem;
       font-weight: bold;
-      box-shadow: 0 0 10px #ff0000;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      animation: pulse 1.5s infinite;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #ff4b2b;
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.07); }
+      100% { transform: scale(1); }
+    }
+
+    .arrow {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+
+    .overlay {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .bg-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.1;
+    }
+
+    audio {
+      display: none;
     }
   </style>
 </head>
 
 <body>
+  <img class="bg-img" src="https://images.unsplash.com/photo-1508186225823-0963cf9ab0de?auto=format&fit=crop&w=1600&q=80" alt="background sensual" />
 
-  <div class="overlay">
-    <h1>🔥 Surpresa Especial Para Você 🔞</h1>
-    <p>Prepare-se para ver algo que vai te deixar sem fôlego... sem censura e sem limites!</p>
-    <div class="tag">+18 SOMENTE</div>
-  </div>
+  <h1>😈 Pronto para o Prazer?</h1>
+  <p>Você está prestes a entrar em algo bem... excitante. Não diga que não avisei. 👀</p>
 
-  <!-- Script do anúncio atualizado -->
-  <script async src="https://js.wpadmngr.com/static/adManager.js" data-admpid="344825"></script>
+  <div class="arrow">▼</div>
 
+  <button class="btn" onclick="playSound(); window.location.https://reyeshehadtwobri.com?ifMBV=1191270'">ENTRAR AGORA</button>
+
+  <div class="overlay">Toque no botão acima e aproveite o conteúdo 🔥</div>
+
+  <audio id="moanSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_97599b831d.mp3"></audio>
+
+  <script>
+    function playSound() {
+      const audio = document.getElementById("moanSound");
+      audio.play();
+    }
+  </script>
 </body>
 </html>
