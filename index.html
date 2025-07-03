@@ -118,10 +118,8 @@
   <script>
     function playAndRedirect() {
       const audio = document.getElementById("moanSound");
-      audio.play();
-      setTimeout(() => {
-        window.location.href = 'https://reyeshehadtwobri.com?ifMBV=1191270';
-      }, 1200); // Aguarda 1.2 segundos antes de redirecionar
+      audio.play().catch(() => {}); // em caso de bloqueio automático
+      window.location.href = 'https://reyeshehadtwobri.com?ifMBV=1191270';
     }
   </script>
 </body>
