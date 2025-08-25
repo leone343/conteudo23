@@ -6,14 +6,8 @@
   <title>Continue 🔞</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
-
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: linear-gradient(135deg, #1a0000, #330000, #660000, #990000);
       background-size: 400% 400%;
@@ -28,13 +22,7 @@
       overflow: hidden;
       padding: 20px;
     }
-
-    @keyframes gradientMove {
-      0% {background-position:0% 50%;}
-      50% {background-position:100% 50%;}
-      100% {background-position:0% 50%;}
-    }
-
+    @keyframes gradientMove { 0% {background-position:0% 50%;} 50% {background-position:100% 50%;} 100% {background-position:0% 50%;} }
     .arrow {
       font-family: 'Montserrat', sans-serif;
       font-size: 4rem;
@@ -43,12 +31,7 @@
       color: #ffcc00;
       text-shadow: 0 0 25px #ffcc00, 0 0 40px #ff6600;
     }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(15px); }
-    }
-
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(15px); } }
     .btn {
       background: linear-gradient(45deg, #ff0033, #ff3366, #ff6699);
       background-size: 300% 300%;
@@ -65,22 +48,9 @@
       font-family: 'Montserrat', sans-serif;
       letter-spacing: 2px;
     }
-
-    .btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 60px rgba(255,0,100,0.9);
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
-
-    @keyframes colorShift {
-      0% {background-position:0% 50%;}
-      50% {background-position:100% 50%;}
-      100% {background-position:0% 50%;}
-    }
+    .btn:hover { transform: scale(1.1); box-shadow: 0 0 60px rgba(255,0,100,0.9); }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+    @keyframes colorShift { 0% {background-position:0% 50%;} 50% {background-position:100% 50%;} 100% {background-position:0% 50%;} }
   </style>
 </head>
 
@@ -91,7 +61,8 @@
 
   <script>
     function redirect() {
-      window.location.href = 'https://otieu.com/4/9645676';
+      // Abre o link no navegador externo, mesmo dentro do Telegram
+      window.open('https://otieu.com/4/9645676', '_blank', 'noopener,noreferrer');
     }
   </script>
 </body>
