@@ -1,69 +1,146 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Continue</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ver Anúncio - Acesse Conteúdo</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: linear-gradient(135deg, #1a0000, #330000, #660000, #990000);
-      background-size: 400% 400%;
-      animation: gradientMove 12s ease infinite;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      text-align: center;
-      overflow: hidden;
-      padding: 20px;
+    :root{
+      --bg:#0f0f11;
+      --card:#161617;
+      --accent:#ff007f;
+      --accent2:#00c853;
+      --text:#eee;
+      --muted:#bdbdbd;
     }
-    @keyframes gradientMove { 0% {background-position:0% 50%;} 50% {background-position:100% 50%;} 100% {background-position:0% 50%;} }
-    .arrow {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 4rem;
-      margin-bottom: 30px;
-      animation: bounce 1s infinite;
-      color: #ffcc00;
-      text-shadow: 0 0 25px #ffcc00, 0 0 40px #ff6600;
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg,#070707, #111);
+      font-family: Inter, Roboto, Arial, sans-serif;
+      color:var(--text);
+      padding:24px;
     }
-    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(15px); } }
-    .btn {
-      background: linear-gradient(45deg, #ff0033, #ff3366, #ff6699);
-      background-size: 300% 300%;
-      color: #fff;
-      border: none;
-      padding: 25px 60px;
-      border-radius: 50px;
-      font-size: 1.8rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 30px rgba(255,0,100,0.7);
-      animation: pulse 1.5s infinite, colorShift 6s infinite linear;
-      transition: all 0.3s ease;
-      font-family: 'Montserrat', sans-serif;
-      letter-spacing: 2px;
+    .card{
+      width:100%;
+      max-width:520px;
+      background:var(--card);
+      border-radius:14px;
+      padding:28px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.6);
+      text-align:center;
     }
-    .btn:hover { transform: scale(1.1); box-shadow: 0 0 60px rgba(255,0,100,0.9); }
-    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
-    @keyframes colorShift { 0% {background-position:0% 50%;} 50% {background-position:100% 50%;} 100% {background-position:0% 50%;} }
+    h1{ margin:0 0 8px 0; font-size:22px; }
+    p{ color:var(--muted); margin:6px 0 18px; }
+    .btn{
+      display:inline-block;
+      padding:14px 22px;
+      border-radius:12px;
+      font-weight:600;
+      font-size:16px;
+      cursor:pointer;
+      border:none;
+      background:var(--accent);
+      color:#fff;
+      text-decoration:none;
+      margin:8px 6px;
+    }
+    .btn.secondary{ background:transparent; border:1px solid rgba(255,255,255,0.08); color:var(--text); }
+    #contador{ margin-top:14px; font-size:18px; color: #ffd54f; }
+    .small{ font-size:13px; color:var(--muted); margin-top:10px; }
+    footer{ margin-top:16px; color:var(--muted); font-size:12px; }
+    @media(max-width:520px){ .card{ padding:20px; } }
   </style>
 </head>
-
 <body>
-  <div class="arrow">▼</div>
+  <div class="card">
+    <h1>🔞 Acesse Conteúdo Exclusivo</h1>
+    <p>Clique em **Ver Anúncio** para abrir o anúncio. Depois de aguardar o tempo, você poderá acessar o conteúdo da modelo.</p>
 
-  <button class="btn" onclick="redirect()">CLIQUE AQUI PARA CONTINUAR</button>
+    <button id="verAnuncio" class="btn">Ver Anúncio</button>
+    <button id="irConteudo" class="btn" style="display:none; background:var(--accent2)">Ir para o Conteúdo</button>
 
-  <script>
-    function redirect() {
-      // Abre o link na mesma aba (sem forçar navegador externo)
-      window.location.href = 'https://otieu.com/4/9645676';
-    }
-  </script>
+    <div id="contador" style="display:none;">Aguarde <span id="segundos">10</span>s...</div>
+
+    <div class="small">
+      Dica: você pode adicionar o link do Telegram direto na URL desta página como <code>?tg=https://t.me/nomedamodelo</code>
+    </div>
+
+    <footer>Teste com o smartlink: otieu.com/4/9645676</footer>
+  </div>
+
+<script>
+  // === CONFIGURAÇÃO ===
+  const SMARTLINK = "https://otieu.com/4/9645676"; // seu smartlink (fornecido)
+  const DEFAULT_TG = "https://t.me/assine_aqui";   // link de fallback pro Telegram (troque se quiser)
+  const TEMPO_SEGUNDOS = 10; // tempo do contador em segundos (altere conforme quiser)
+  // =====================
+
+  const btnAnuncio = document.getElementById("verAnuncio");
+  const btnConteudo = document.getElementById("irConteudo");
+  const contadorBox = document.getElementById("contador");
+  const segundosSpan = document.getElementById("segundos");
+
+  // pega parametro ?tg= da URL (se existir)
+  function pegarLinkTelegramDaURL(){
+    try {
+      const qp = new URLSearchParams(window.location.search);
+      const tg = qp.get("tg");
+      if(tg && (tg.startsWith("http://") || tg.startsWith("https://") || tg.startsWith("tg:") || tg.startsWith("t.me"))){
+        // normaliza t.me sem protocolo
+        if(tg.startsWith("t.me")) return "https://" + tg;
+        if(tg.startsWith("tg:")) return tg; // caso use deep link tg://...
+        return tg;
+      }
+    } catch(e){}
+    return DEFAULT_TG;
+  }
+
+  const TELEGRAM_LINK = pegarLinkTelegramDaURL();
+
+  let tempo = TEMPO_SEGUNDOS;
+  let intervalo = null;
+
+  function iniciarContador(){
+    tempo = TEMPO_SEGUNDOS;
+    segundosSpan.textContent = tempo;
+    contadorBox.style.display = "block";
+    btnConteudo.style.display = "none";
+
+    clearInterval(intervalo);
+    intervalo = setInterval(() => {
+      tempo--;
+      if(tempo <= 0){
+        clearInterval(intervalo);
+        contadorBox.textContent = "✅ Pronto! Clique em \"Ir para o Conteúdo\"";
+        btnConteudo.style.display = "inline-block";
+        // opcional: redirecionar automaticamente após 1.5s
+        // setTimeout(()=> { window.location.href = TELEGRAM_LINK; }, 1500);
+      } else {
+        segundosSpan.textContent = tempo;
+      }
+    }, 1000);
+  }
+
+  btnAnuncio.addEventListener("click", function(){
+    // abre o smartlink em nova aba
+    window.open(SMARTLINK, "_blank");
+    // inicia o contador na página atual
+    iniciarContador();
+    // foco visual: muda botão
+    btnAnuncio.classList.add("secondary");
+  });
+
+  btnConteudo.addEventListener("click", function(){
+    // redireciona para o telegram da modelo
+    window.location.href = TELEGRAM_LINK;
+  });
+
+  // se quiser, já inicia o contador automaticamente quando a página abre:
+  // iniciarContador();
+</script>
 </body>
 </html>
