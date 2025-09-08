@@ -5,142 +5,91 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>🔞 Conteúdo Exclusivo</title>
   <style>
-    :root{
-      --bg:#0f0f11;
-      --card:#161617;
-      --accent:#ff007f;
-      --accent2:#00c853;
-      --text:#eee;
-      --muted:#bdbdbd;
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 20px;
     }
-    body{
-      margin:0;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(180deg,#070707, #111);
-      font-family: Inter, Roboto, Arial, sans-serif;
-      color:var(--text);
-      padding:24px;
+    .card {
+      background: #1b1b1b;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     }
-    .card{
-      width:100%;
-      max-width:520px;
-      background:var(--card);
-      border-radius:14px;
-      padding:28px;
-      box-shadow:0 10px 30px rgba(0,0,0,0.6);
-      text-align:center;
+    .btn {
+      background: #ff007f;
+      border: none;
+      padding: 14px 24px;
+      color: #fff;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 15px;
+      width: 100%;
     }
-    h1{ margin:0 0 8px 0; font-size:22px; }
-    p{ color:var(--muted); margin:6px 0 18px; }
-    .btn{
-      display:inline-block;
-      padding:14px 22px;
-      border-radius:12px;
-      font-weight:600;
-      font-size:16px;
-      cursor:pointer;
-      border:none;
-      background:var(--accent);
-      color:#fff;
-      text-decoration:none;
-      margin:8px 6px;
+    .btn:hover {
+      background: #ff3da6;
     }
-    #contador{
-      margin-top:14px;
-      font-size:18px;
-      color: #ffd54f;
+    #aviso {
       display: none;
-    }
-    .alerta{
-      background:#ff4444;
-      padding:12px;
-      border-radius:8px;
-      margin-bottom:16px;
-      color:white;
-      display:none;
+      margin-top: 12px;
+      color: #ffcc00;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>🔞 Conteúdo Exclusivo</h1>
-    <p>Clique em <b>Ver Anúncio</b> para desbloquear o conteúdo da modelo.</p>
-
-    <div id="avisoTelegram" class="alerta">
-      ⚠ Abra esta página no <b>NAVEGADOR</b> do seu celular para continuar!
-    </div>
-
-    <button id="verAnuncio" class="btn">Ver Anúncio</button>
-
-    <div id="contador">Aguarde <span id="segundos">10</span>s...</div>
+    <p>Aguarde, estamos redirecionando você...</p>
+    <button id="abrirNavegador" class="btn" style="display:none;">Abrir no Navegador</button>
+    <div id="aviso">⚠ Abra no navegador para continuar!</div>
   </div>
 
 <script>
-  // === CONFIGURAÇÃO ===
-  const SMARTLINK = "https://otieu.com/4/9645676"; // link do anúncio
-  const TELEGRAM_LINK = "https://t.me/+z-i6AW_pVExmYTkx"; // link da modelo
-  const TEMPO_SEGUNDOS = 10; // tempo do contador
-  // =====================
+  const SMARTLINK = "https://otieu.com/4/9645676"; 
+  const TELEGRAM_LINK = "https://t.me/+z-i6AW_pVExmYTkx";
+  const TEMPO_SEGUNDOS = 10;
 
-  const btnAnuncio = document.getElementById("verAnuncio");
-  const contadorBox = document.getElementById("contador");
-  const segundosSpan = document.getElementById("segundos");
-  const avisoTelegram = document.getElementById("avisoTelegram");
-
-  let tempo = TEMPO_SEGUNDOS;
-  let anuncioWindow = null;
-  let intervalo = null;
-
-  // Detectar se está no navegador interno do Telegram
-  function estaNoTelegram(){
+  function estaNoTelegram() {
     return navigator.userAgent.toLowerCase().includes("telegram");
   }
 
-  // Inicia a contagem regressiva
-  function iniciarContador(){
-    contadorBox.style.display = "block";
-    segundosSpan.textContent = tempo;
+  function abrirNoNavegadorExterno() {
+    const url = window.location.href;
+    const intentUrl = "intent://" + url.replace(/^https?:\/\//, "") +
+      "#Intent;scheme=https;package=com.android.chrome;end;";
+    window.location.href = intentUrl;
+  }
 
-    intervalo = setInterval(() => {
-      // Verifica se o anúncio foi fechado antes do tempo
-      if (anuncioWindow && anuncioWindow.closed) {
-        clearInterval(intervalo);
-        contadorBox.innerHTML = "❌ Você fechou o anúncio antes do tempo!";
-        return;
-      }
-
-      tempo--;
-      segundosSpan.textContent = tempo;
-
-      if (tempo <= 0) {
-        clearInterval(intervalo);
-        contadorBox.textContent = "✅ Redirecionando...";
-        setTimeout(() => {
-          window.location.href = TELEGRAM_LINK;
-        }, 1000);
-      }
+  function iniciarFluxoNormal() {
+    setTimeout(() => {
+      window.open(SMARTLINK, "_blank");
+      setTimeout(() => {
+        window.location.href = TELEGRAM_LINK;
+      }, TEMPO_SEGUNDOS * 1000);
     }, 1000);
   }
 
-  // Ação ao clicar no botão
-  btnAnuncio.addEventListener("click", () => {
-    anuncioWindow = window.open(SMARTLINK, "_blank");
-    if (!anuncioWindow) {
-      alert("⚠ Permita pop-ups para abrir o anúncio!");
-      return;
-    }
-    iniciarContador();
-  });
+  const btnAbrir = document.getElementById("abrirNavegador");
+  const aviso = document.getElementById("aviso");
 
-  // Exibir aviso se estiver dentro do Telegram
   if (estaNoTelegram()) {
-    avisoTelegram.style.display = "block";
-    btnAnuncio.disabled = true;
-    btnAnuncio.style.opacity = 0.5;
-    btnAnuncio.style.cursor = "not-allowed";
+    aviso.style.display = "block";
+    btnAbrir.style.display = "block";
+    btnAbrir.addEventListener("click", abrirNoNavegadorExterno);
+    // Também tenta abrir automaticamente no Chrome
+    setTimeout(abrirNoNavegadorExterno, 1500);
+  } else {
+    iniciarFluxoNormal();
   }
 </script>
 </body>
