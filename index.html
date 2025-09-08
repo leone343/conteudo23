@@ -29,40 +29,54 @@ let contagemIntervalo;
 const btn = document.getElementById("verAnuncio");
 const contador = document.getElementById("contador");
 
-// Função para iniciar contagem
-function iniciarContagem() {
-  contagemAtiva = true;
-  contador.innerText = `⏳ Aguarde ${tempoRestante} segundos fora da página...`;
-
-  contagemIntervalo = setInterval(() => {
-    if (!contagemAtiva) return;
-    tempoRestante--;
-    contador.innerText = `⏳ Aguarde ${tempoRestante} segundos fora da página...`;
-    if (tempoRestante <= 0) {
-      clearInterval(contagemIntervalo);
-      window.location.href = TELEGRAM_LINK; // libera conteúdo
+// Detecta Telegram WebView
+if (navigator.userAgent.includes("Telegram")) {
+    document.body.innerHTML = `
+        <div style="text-align:center; margin-top:50px;">
+            <h2>⚠️ Abra esta página no navegador do seu celular!</h2>
+            <p>O conteúdo não funciona dentro do app Telegram.</p>
+            <button class="btn" onclick="copiarLink()">Copiar link para abrir no navegador</button>
+        </div>
+    `;
+    function copiarLink() {
+        navigator.clipboard.writeText(window.location.href)
+            .then(() => alert('Link copiado! Abra no navegador do seu celular.'));
     }
-  }, 1000);
+} else {
+    // Função para iniciar contagem
+    function iniciarContagem() {
+        contagemAtiva = true;
+        contador.innerText = `⏳ Aguarde ${tempoRestante} segundos fora da página...`;
+
+        contagemIntervalo = setInterval(() => {
+            if (!contagemAtiva) return;
+            tempoRestante--;
+            contador.innerText = `⏳ Aguarde ${tempoRestante} segundos fora da página...`;
+            if (tempoRestante <= 0) {
+                clearInterval(contagemIntervalo);
+                window.location.href = TELEGRAM_LINK; // libera conteúdo
+            }
+        }, 1000);
+    }
+
+    // Detecta se usuário voltou para a aba principal
+    document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) {
+            contagemAtiva = false;
+            clearInterval(contagemIntervalo);
+            tempoRestante = TEMPO_SEGUNDOS;
+            contador.innerText = "❌ Conteúdo não liberado. Saia novamente para tentar.";
+        }
+    });
+
+    btn.addEventListener("click", () => {
+        // Abre o smartlink em nova aba
+        window.open(SMARTLINK, "_blank");
+        contador.innerText = `⏳ Saia da página principal para iniciar a contagem (${TEMPO_SEGUNDOS}s)`;
+        tempoRestante = TEMPO_SEGUNDOS;
+        iniciarContagem();
+    });
 }
-
-// Detecta se usuário voltou para a aba principal
-document.addEventListener("visibilitychange", () => {
-  if (!document.hidden) {
-    // Aba voltou antes do tempo terminar
-    contagemAtiva = false;
-    clearInterval(contagemIntervalo);
-    tempoRestante = TEMPO_SEGUNDOS;
-    contador.innerText = "❌ Conteúdo não liberado. Saia novamente para tentar.";
-  }
-});
-
-btn.addEventListener("click", () => {
-  // Abre o smartlink em nova aba (dentro do Telegram, se o navegador interno permitir)
-  window.open(SMARTLINK, "_blank");
-  contador.innerText = `⏳ Saia da página principal para iniciar a contagem (${TEMPO_SEGUNDOS}s)`;
-  tempoRestante = TEMPO_SEGUNDOS;
-  iniciarContagem();
-});
 </script>
 </body>
 </html>
