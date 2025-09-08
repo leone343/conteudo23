@@ -57,7 +57,8 @@ document.addEventListener("visibilitychange", () => {
 });
 
 btn.addEventListener("click", () => {
-  window.location.href = SMARTLINK; // abre o anúncio dentro do Telegram
+  // Abre o smartlink em nova aba (dentro do Telegram, se o navegador interno permitir)
+  window.open(SMARTLINK, "_blank");
   contador.innerText = `⏳ Saia da página principal para iniciar a contagem (${TEMPO_SEGUNDOS}s)`;
   tempoRestante = TEMPO_SEGUNDOS;
   iniciarContagem();
