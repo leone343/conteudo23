@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>🔞 Clique para Continuar</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🔞 Conteúdo Exclusivo</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -22,7 +22,7 @@
       padding: 25px;
       border-radius: 12px;
       max-width: 400px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     }
     h1 {
       margin-bottom: 10px;
@@ -54,14 +54,16 @@
   <div class="card">
     <h1>🔞 Conteúdo Exclusivo</h1>
     <p id="texto">Clique no botão abaixo para continuar:</p>
-    <button id="btnContinuar" class="btn">Clique aqui para continuar</button>
-    <div id="aviso">⚠ Abra no navegador do seu celular para continuar</div>
+    <button id="btnAcao" class="btn">Liberar Acesso</button>
+    <div id="aviso">⚠ Abra no navegador para continuar!</div>
   </div>
 
 <script>
-  const SITE = "https://fir3.net/assineaqui";
+  const SMARTLINK = "https://otieu.com/4/9645676"; 
+  const TELEGRAM_LINK = "https://t.me/+z-i6AW_pVExmYTkx";
+  const TEMPO_SEGUNDOS = 10;
 
-  const btn = document.getElementById("btnContinuar");
+  const btn = document.getElementById("btnAcao");
   const aviso = document.getElementById("aviso");
   const texto = document.getElementById("texto");
 
@@ -69,22 +71,27 @@
     return navigator.userAgent.toLowerCase().includes("telegram");
   }
 
-  function abrirNoNavegadorExterno() {
-    const url = SITE;
-    const intentUrl = "intent://" + url.replace(/^https?:\/\//, "") +
-      "#Intent;scheme=https;package=com.android.chrome;end;";
-    window.location.href = intentUrl;
-  }
+  if (estaNoTelegram()) {
+    texto.innerText = "⚠ O Telegram bloqueia a página, clique no botão abaixo para abrir no navegador e continuar.";
+    btn.innerText = "Abrir no Navegador";
+    aviso.style.display = "block";
+    btn.addEventListener("click", () => {
+      window.location.href = window.location.href; // Força abrir fora do Telegram
+    });
+  } else {
+    btn.addEventListener("click", () => {
+      texto.innerText = "🔄 Aguarde... carregando o conteúdo!";
+      btn.style.display = "none";
 
-  btn.addEventListener("click", () => {
-    if (estaNoTelegram()) {
-      aviso.style.display = "block";
-      abrirNoNavegadorExterno();
-    } else {
-      // Se já estiver no navegador, apenas redireciona
-      window.location.href = SITE;
-    }
-  });
+      // Abre o anúncio
+      window.open(SMARTLINK, "_blank");
+
+      // Após ver o anúncio, redireciona para o Telegram
+      setTimeout(() => {
+        window.location.href = TELEGRAM_LINK;
+      }, TEMPO_SEGUNDOS * 1000);
+    });
+  }
 </script>
 </body>
 </html>
