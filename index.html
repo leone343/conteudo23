@@ -18,7 +18,7 @@
 <div id="contador"></div>
 
 <script>
-const SMARTLINK = "https://fir3.net/assineaqui";
+const SMARTLINK = "https://otieu.com/4/9645676";
 const TELEGRAM_LINK = "https://t.me/+z-i6AW_pVExmYTkx";
 const TEMPO_SEGUNDOS = 10;
 
@@ -45,7 +45,7 @@ document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
     contagemAtiva = true; // aba fora do foco, inicia contagem
   } else {
-    contagemAtiva = false; // aba voltou antes do tempo, pausa/para a contagem
+    contagemAtiva = false; // aba voltou antes do tempo, reinicia contagem
     contador.innerText = "❌ Conteúdo não liberado. Saia novamente para tentar.";
     tempoRestante = TEMPO_SEGUNDOS; // reinicia contagem
   }
