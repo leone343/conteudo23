@@ -35,22 +35,33 @@
 <body>
 
 <h1>Redirecionando...</h1>
-<p>Se nada acontecer, clique no botão abaixo para abrir no navegador.</p>
+<p>Se nada acontecer, clique no botão abaixo para abrir no navegador externo.</p>
 
-<a id="manualLink" href="https://fir3.net/assineaqui" target="_blank" rel="noopener noreferrer">
+<a id="manualLink">
   <button>Abrir no navegador</button>
 </a>
 
 <script>
-  // Tenta abrir automaticamente
-  window.onload = function() {
-    var newWindow = window.open('https://fir3.net/assineaqui', '_blank');
-    
-    // Se o Telegram bloqueou, deixa o botão visível
-    if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-      console.log('O Telegram bloqueou o redirecionamento automático.');
-    }
+  const destino = "https://fir3.net/assineaqui";
+
+  function abrirNavegadorExterno() {
+    // Tenta usar intent do Android para forçar abrir no navegador externo
+    const intentUrl = `intent://${destino.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`;
+
+    // Primeiro tenta abrir pelo intent
+    window.location.href = intentUrl;
+
+    // Caso o intent falhe, tenta abrir direto
+    setTimeout(() => {
+      window.location.href = destino;
+    }, 800);
   }
+
+  // Clique manual no botão
+  document.getElementById("manualLink").addEventListener("click", abrirNavegadorExterno);
+
+  // Redireciona automaticamente depois de 1s
+  setTimeout(abrirNavegadorExterno, 1000);
 </script>
 
 </body>
