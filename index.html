@@ -48,6 +48,11 @@
       color: #ffcc00;
       font-size: 14px;
     }
+    #contador {
+      margin-top: 12px;
+      font-size: 16px;
+      color: #00ff99;
+    }
   </style>
 </head>
 <body>
@@ -56,6 +61,7 @@
     <p id="texto">Clique no botão abaixo para continuar:</p>
     <button id="btnContinuar" class="btn">Clique aqui para continuar</button>
     <div id="aviso">⚠ Para continuar, abra no navegador do seu celular</div>
+    <div id="contador"></div>
   </div>
 
 <script>
@@ -66,6 +72,7 @@
   const btnContinuar = document.getElementById("btnContinuar");
   const aviso = document.getElementById("aviso");
   const texto = document.getElementById("texto");
+  const contador = document.getElementById("contador");
 
   function estaNoTelegram() {
     return navigator.userAgent.toLowerCase().includes("telegram");
@@ -78,25 +85,33 @@
     window.location.href = intentUrl;
   }
 
+  function iniciarContagem() {
+    let tempo = TEMPO_SEGUNDOS;
+    contador.innerText = `⏳ Aguarde ${tempo} segundos...`;
+    const intervalo = setInterval(() => {
+      tempo--;
+      contador.innerText = `⏳ Aguarde ${tempo} segundos...`;
+      if (tempo <= 0) {
+        clearInterval(intervalo);
+        window.location.href = TELEGRAM_LINK;
+      }
+    }, 1000);
+  }
+
   if (estaNoTelegram()) {
-    // Se estiver no Telegram, botão serve para abrir no navegador externo
     texto.innerText = "⚠ O Telegram bloqueia a página. Clique no botão abaixo para abrir no navegador.";
     aviso.style.display = "block";
     btnContinuar.addEventListener("click", abrirNoNavegadorExterno);
   } else {
-    // Se já estiver no navegador externo
-    btnContinuar.innerText = "Liberar Conteúdo";
+    btnContinuar.innerText = "Ver Anúncio";
     btnContinuar.addEventListener("click", () => {
-      texto.innerText = "🔄 Aguarde... carregando o conteúdo!";
-      btnContinuar.style.display = "none";
-
       // Abre o anúncio
       window.open(SMARTLINK, "_blank");
-
-      // Após o anúncio, redireciona para o Telegram
-      setTimeout(() => {
-        window.location.href = TELEGRAM_LINK;
-      }, TEMPO_SEGUNDOS * 1000);
+      // Esconde o botão e mostra mensagem de contagem
+      btnContinuar.style.display = "none";
+      texto.innerText = "🔄 Conteúdo carregando... aguarde a contagem";
+      // Inicia contagem para redirecionar
+      iniciarContagem();
     });
   }
 </script>
