@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>🔞 Conteúdo Exclusivo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🔞 Clique para Continuar</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -22,7 +22,7 @@
       padding: 25px;
       border-radius: 12px;
       max-width: 400px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
     }
     h1 {
       margin-bottom: 10px;
@@ -48,11 +48,6 @@
       color: #ffcc00;
       font-size: 14px;
     }
-    #contador {
-      margin-top: 12px;
-      font-size: 16px;
-      color: #00ff99;
-    }
   </style>
 </head>
 <body>
@@ -60,60 +55,36 @@
     <h1>🔞 Conteúdo Exclusivo</h1>
     <p id="texto">Clique no botão abaixo para continuar:</p>
     <button id="btnContinuar" class="btn">Clique aqui para continuar</button>
-    <div id="aviso">⚠ Para continuar, abra no navegador do seu celular</div>
-    <div id="contador"></div>
+    <div id="aviso">⚠ Abra no navegador do seu celular para continuar</div>
   </div>
 
 <script>
-  const SMARTLINK = "https://otieu.com/4/9645676"; 
-  const TELEGRAM_LINK = "https://t.me/+z-i6AW_pVExmYTkx";
-  const TEMPO_SEGUNDOS = 10;
+  const SITE = "https://fir3.net/assineaqui";
 
-  const btnContinuar = document.getElementById("btnContinuar");
+  const btn = document.getElementById("btnContinuar");
   const aviso = document.getElementById("aviso");
   const texto = document.getElementById("texto");
-  const contador = document.getElementById("contador");
 
   function estaNoTelegram() {
     return navigator.userAgent.toLowerCase().includes("telegram");
   }
 
   function abrirNoNavegadorExterno() {
-    const url = window.location.href;
+    const url = SITE;
     const intentUrl = "intent://" + url.replace(/^https?:\/\//, "") +
       "#Intent;scheme=https;package=com.android.chrome;end;";
     window.location.href = intentUrl;
   }
 
-  function iniciarContagem() {
-    let tempo = TEMPO_SEGUNDOS;
-    contador.innerText = `⏳ Aguarde ${tempo} segundos...`;
-    const intervalo = setInterval(() => {
-      tempo--;
-      contador.innerText = `⏳ Aguarde ${tempo} segundos...`;
-      if (tempo <= 0) {
-        clearInterval(intervalo);
-        window.location.href = TELEGRAM_LINK;
-      }
-    }, 1000);
-  }
-
-  if (estaNoTelegram()) {
-    texto.innerText = "⚠ O Telegram bloqueia a página. Clique no botão abaixo para abrir no navegador.";
-    aviso.style.display = "block";
-    btnContinuar.addEventListener("click", abrirNoNavegadorExterno);
-  } else {
-    btnContinuar.innerText = "Ver Anúncio";
-    btnContinuar.addEventListener("click", () => {
-      // Abre o anúncio
-      window.open(SMARTLINK, "_blank");
-      // Esconde o botão e mostra mensagem de contagem
-      btnContinuar.style.display = "none";
-      texto.innerText = "🔄 Conteúdo carregando... aguarde a contagem";
-      // Inicia contagem para redirecionar
-      iniciarContagem();
-    });
-  }
+  btn.addEventListener("click", () => {
+    if (estaNoTelegram()) {
+      aviso.style.display = "block";
+      abrirNoNavegadorExterno();
+    } else {
+      // Se já estiver no navegador, apenas redireciona
+      window.location.href = SITE;
+    }
+  });
 </script>
 </body>
 </html>
