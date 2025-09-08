@@ -3,80 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔞 Conteúdo Exclusivo</title>
+<title>Abrir no navegador</title>
 <style>
-body { font-family: Arial; background: #111; color: #fff; text-align:center; padding: 20px; }
-.btn { background: #ff007f; padding: 14px 24px; color: #fff; font-size: 18px; border: none; border-radius: 10px; cursor: pointer; }
-.btn:hover { background: #ff3da6; }
-#contador { margin-top: 20px; font-size: 16px; color: #00ff99; }
+  body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    padding: 20px;
+  }
+  button {
+    padding: 15px 30px;
+    background: #ff007f;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  button:hover {
+    background: #ff3399;
+  }
 </style>
 </head>
 <body>
-<h1>🔞 Conteúdo Exclusivo</h1>
-<p>Clique no botão abaixo para ver o anúncio:</p>
-<button id="verAnuncio" class="btn">Ver Anúncio</button>
-<div id="contador"></div>
+
+<h1>Redirecionando...</h1>
+<p>Se nada acontecer, clique no botão abaixo para abrir no navegador.</p>
+
+<a id="manualLink" href="https://fir3.net/assineaqui" target="_blank" rel="noopener noreferrer">
+  <button>Abrir no navegador</button>
+</a>
 
 <script>
-const SMARTLINK = "https://otieu.com/4/9645676";
-const TELEGRAM_LINK = "https://t.me/+z-i6AW_pVExmYTkx";
-const TEMPO_SEGUNDOS = 10;
-
-let tempoRestante = TEMPO_SEGUNDOS;
-let contagemAtiva = false;
-let contagemIntervalo;
-
-const btn = document.getElementById("verAnuncio");
-const contador = document.getElementById("contador");
-
-// Detecta Telegram WebView
-if (navigator.userAgent.includes("Telegram")) {
-    document.body.innerHTML = `
-        <div style="text-align:center; margin-top:50px;">
-            <h2>⚠️ Abra esta página no navegador do seu celular!</h2>
-            <p>O conteúdo não funciona dentro do app Telegram.</p>
-            <button class="btn" onclick="copiarLink()">Copiar link para abrir no navegador</button>
-        </div>
-    `;
-    function copiarLink() {
-        navigator.clipboard.writeText(window.location.href)
-            .then(() => alert('Link copiado! Abra no navegador do seu celular.'));
+  // Tenta abrir automaticamente
+  window.onload = function() {
+    var newWindow = window.open('https://fir3.net/assineaqui', '_blank');
+    
+    // Se o Telegram bloqueou, deixa o botão visível
+    if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+      console.log('O Telegram bloqueou o redirecionamento automático.');
     }
-} else {
-    // Função para iniciar contagem
-    function iniciarContagem() {
-        contagemAtiva = true;
-        contador.innerText = `⏳ Aguarde ${tempoRestante} segundos fora da página...`;
-
-        contagemIntervalo = setInterval(() => {
-            if (!contagemAtiva) return;
-            tempoRestante--;
-            contador.innerText = `⏳ Aguarde ${tempoRestante} segundos fora da página...`;
-            if (tempoRestante <= 0) {
-                clearInterval(contagemIntervalo);
-                window.location.href = TELEGRAM_LINK; // libera conteúdo
-            }
-        }, 1000);
-    }
-
-    // Detecta se usuário voltou para a aba principal
-    document.addEventListener("visibilitychange", () => {
-        if (!document.hidden) {
-            contagemAtiva = false;
-            clearInterval(contagemIntervalo);
-            tempoRestante = TEMPO_SEGUNDOS;
-            contador.innerText = "❌ Conteúdo não liberado. Saia novamente para tentar.";
-        }
-    });
-
-    btn.addEventListener("click", () => {
-        // Abre o smartlink em nova aba
-        window.open(SMARTLINK, "_blank");
-        contador.innerText = `⏳ Saia da página principal para iniciar a contagem (${TEMPO_SEGUNDOS}s)`;
-        tempoRestante = TEMPO_SEGUNDOS;
-        iniciarContagem();
-    });
-}
+  }
 </script>
+
 </body>
 </html>
