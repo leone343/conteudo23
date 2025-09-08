@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🔞 Conteúdo Exclusivo</title>
 <style>
-  body { font-family: Arial; background: #111; color: #fff; text-align:center; padding: 20px; }
-  .btn { background: #ff007f; padding: 14px 24px; color: #fff; font-size: 18px; border: none; border-radius: 10px; cursor: pointer; }
-  .btn:hover { background: #ff3da6; }
-  #contador { margin-top: 20px; font-size: 16px; color: #00ff99; }
+body { font-family: Arial; background: #111; color: #fff; text-align:center; padding: 20px; }
+.btn { background: #ff007f; padding: 14px 24px; color: #fff; font-size: 18px; border: none; border-radius: 10px; cursor: pointer; }
+.btn:hover { background: #ff3da6; }
+#contador { margin-top: 20px; font-size: 16px; color: #00ff99; }
 </style>
 </head>
 <body>
@@ -18,43 +18,47 @@
 <div id="contador"></div>
 
 <script>
-const SMARTLINK = "https://otieu.com/4/9645676";
-const TELEGRAM_LINK = "https://t.me/+z-i6AW_pVExmYTkx";
 const TEMPO_SEGUNDOS = 10;
+const TELEGRAM_LINK = "https://t.me/+z-i6AW_pVExmYTkx";
 
 let tempoRestante = TEMPO_SEGUNDOS;
 let contagemAtiva = false;
+let contagemIntervalo;
 
 const btn = document.getElementById("verAnuncio");
 const contador = document.getElementById("contador");
 
+// Função para iniciar contagem
 function iniciarContagem() {
-  const intervalo = setInterval(() => {
-    if (!contagemAtiva) return; // só conta enquanto aba principal estiver em background
+  contagemAtiva = true;
+  contador.innerText = `⏳ Aguarde ${tempoRestante} segundos fora da página...`;
+
+  contagemIntervalo = setInterval(() => {
+    if (!contagemAtiva) return;
     tempoRestante--;
     contador.innerText = `⏳ Aguarde ${tempoRestante} segundos fora da página...`;
     if (tempoRestante <= 0) {
-      clearInterval(intervalo);
-      window.location.href = TELEGRAM_LINK; // libera conteúdo
+      clearInterval(contagemIntervalo);
+      window.location.href = TELEGRAM_LINK;
     }
   }, 1000);
 }
 
-// Detecta quando a aba principal perde ou ganha foco
+// Detecta se usuário voltou para a aba principal
 document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    contagemAtiva = true; // aba fora do foco, inicia contagem
-  } else {
-    contagemAtiva = false; // aba voltou antes do tempo, reinicia contagem
+  if (!document.hidden) {
+    // Aba voltou antes do tempo terminar
+    contagemAtiva = false;
+    clearInterval(contagemIntervalo);
+    tempoRestante = TEMPO_SEGUNDOS;
     contador.innerText = "❌ Conteúdo não liberado. Saia novamente para tentar.";
-    tempoRestante = TEMPO_SEGUNDOS; // reinicia contagem
   }
 });
 
 btn.addEventListener("click", () => {
-  window.open(SMARTLINK, "_blank"); // abre anúncio no navegador externo
   contador.innerText = `⏳ Saia da página principal para iniciar a contagem (${TEMPO_SEGUNDOS}s)`;
   tempoRestante = TEMPO_SEGUNDOS;
+  iniciarContagem();
 });
 </script>
 </body>
