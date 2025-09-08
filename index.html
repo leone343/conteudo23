@@ -18,8 +18,9 @@ body { font-family: Arial; background: #111; color: #fff; text-align:center; pad
 <div id="contador"></div>
 
 <script>
-const TEMPO_SEGUNDOS = 10;
+const SMARTLINK = "https://otieu.com/4/9645676";
 const TELEGRAM_LINK = "https://t.me/+z-i6AW_pVExmYTkx";
+const TEMPO_SEGUNDOS = 10;
 
 let tempoRestante = TEMPO_SEGUNDOS;
 let contagemAtiva = false;
@@ -39,7 +40,7 @@ function iniciarContagem() {
     contador.innerText = `⏳ Aguarde ${tempoRestante} segundos fora da página...`;
     if (tempoRestante <= 0) {
       clearInterval(contagemIntervalo);
-      window.location.href = TELEGRAM_LINK;
+      window.location.href = TELEGRAM_LINK; // libera conteúdo
     }
   }, 1000);
 }
@@ -56,6 +57,7 @@ document.addEventListener("visibilitychange", () => {
 });
 
 btn.addEventListener("click", () => {
+  window.location.href = SMARTLINK; // abre o anúncio dentro do Telegram
   contador.innerText = `⏳ Saia da página principal para iniciar a contagem (${TEMPO_SEGUNDOS}s)`;
   tempoRestante = TEMPO_SEGUNDOS;
   iniciarContagem();
