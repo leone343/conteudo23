@@ -1,97 +1,61 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>🔞 Conteúdo Exclusivo</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
-      padding: 20px;
-    }
-    .card {
-      background: #1b1b1b;
-      padding: 25px;
-      border-radius: 12px;
-      max-width: 400px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    }
-    h1 {
-      margin-bottom: 10px;
-    }
-    .btn {
-      background: #ff007f;
-      border: none;
-      padding: 14px 24px;
-      color: #fff;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 15px;
-      width: 100%;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      background: #ff3da6;
-    }
-    #aviso {
-      display: none;
-      margin-top: 12px;
-      color: #ffcc00;
-      font-size: 14px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔞 Conteúdo Exclusivo</title>
+<style>
+  body { font-family: Arial; background: #111; color: #fff; text-align:center; padding: 20px; }
+  .btn { background: #ff007f; padding: 14px 24px; color: #fff; font-size: 18px; border: none; border-radius: 10px; cursor: pointer; }
+  .btn:hover { background: #ff3da6; }
+  #contador { margin-top: 20px; font-size: 16px; color: #00ff99; }
+</style>
 </head>
 <body>
-  <div class="card">
-    <h1>🔞 Conteúdo Exclusivo</h1>
-    <p id="texto">Clique no botão abaixo para continuar:</p>
-    <button id="btnAcao" class="btn">Liberar Acesso</button>
-    <div id="aviso">⚠ Abra no navegador para continuar!</div>
-  </div>
+<h1>🔞 Conteúdo Exclusivo</h1>
+<p>Clique no botão abaixo para ver o anúncio:</p>
+<button id="verAnuncio" class="btn">Ver Anúncio</button>
+<div id="contador"></div>
 
 <script>
-  const SMARTLINK = "https://otieu.com/4/9645676"; 
-  const TELEGRAM_LINK = "https://t.me/+z-i6AW_pVExmYTkx";
-  const TEMPO_SEGUNDOS = 10;
+const SMARTLINK = "https://fir3.net/assineaqui";
+const TELEGRAM_LINK = "https://t.me/+z-i6AW_pVExmYTkx";
+const TEMPO_SEGUNDOS = 10;
 
-  const btn = document.getElementById("btnAcao");
-  const aviso = document.getElementById("aviso");
-  const texto = document.getElementById("texto");
+let tempoRestante = TEMPO_SEGUNDOS;
+let contagemAtiva = false;
 
-  function estaNoTelegram() {
-    return navigator.userAgent.toLowerCase().includes("telegram");
-  }
+const btn = document.getElementById("verAnuncio");
+const contador = document.getElementById("contador");
 
-  if (estaNoTelegram()) {
-    texto.innerText = "⚠ O Telegram bloqueia a página, clique no botão abaixo para abrir no navegador e continuar.";
-    btn.innerText = "Abrir no Navegador";
-    aviso.style.display = "block";
-    btn.addEventListener("click", () => {
-      window.location.href = window.location.href; // Força abrir fora do Telegram
-    });
+function iniciarContagem() {
+  const intervalo = setInterval(() => {
+    if (!contagemAtiva) return; // só conta enquanto aba principal estiver em background
+    tempoRestante--;
+    contador.innerText = `⏳ Aguarde ${tempoRestante} segundos fora da página...`;
+    if (tempoRestante <= 0) {
+      clearInterval(intervalo);
+      window.location.href = TELEGRAM_LINK; // libera conteúdo
+    }
+  }, 1000);
+}
+
+// Detecta quando a aba principal perde ou ganha foco
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    contagemAtiva = true; // aba fora do foco, inicia contagem
   } else {
-    btn.addEventListener("click", () => {
-      texto.innerText = "🔄 Aguarde... carregando o conteúdo!";
-      btn.style.display = "none";
-
-      // Abre o anúncio
-      window.open(SMARTLINK, "_blank");
-
-      // Após ver o anúncio, redireciona para o Telegram
-      setTimeout(() => {
-        window.location.href = TELEGRAM_LINK;
-      }, TEMPO_SEGUNDOS * 1000);
-    });
+    contagemAtiva = false; // aba voltou antes do tempo, pausa/para a contagem
+    contador.innerText = "❌ Conteúdo não liberado. Saia novamente para tentar.";
+    tempoRestante = TEMPO_SEGUNDOS; // reinicia contagem
   }
+});
+
+btn.addEventListener("click", () => {
+  window.open(SMARTLINK, "_blank"); // abre anúncio no navegador externo
+  contador.innerText = `⏳ Saia da página principal para iniciar a contagem (${TEMPO_SEGUNDOS}s)`;
+  tempoRestante = TEMPO_SEGUNDOS;
+});
 </script>
 </body>
 </html>
